@@ -1,0 +1,19 @@
+type Bet @entity {
+  # nft id
+  id: ID!
+
+  player: Player!
+  amount: BigInt!
+  expected: Int!
+  dice1: Int
+  dice2: Int
+  result: Int
+  betTime: BigInt!
+}
+
+type Player @entity {
+  # user address
+  id: ID!
+
+  bets: [Bet!] @derivedFrom(field: "player")
+}

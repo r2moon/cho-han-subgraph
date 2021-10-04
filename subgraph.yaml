@@ -1,0 +1,27 @@
+specVersion: 0.0.2
+description: CHO-HAN Dice game
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Dice
+    network: rinkeby
+    source:
+      address: '0x728E6Ba33dfa79c0e64ef6F394B95Da0B8Adf7C6'
+      abi: Dice
+      startBlock: 9400899
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.3
+      language: wasm/assemblyscript
+      file: ./src/dice.ts
+      entities:
+        - Vault
+      abis:
+        - name: Dice
+          file: ./abis/Dice.json
+      eventHandlers:
+        - event: BetRequested(indexed address,indexed bytes32,uint256,uint8)
+          handler: handleBetRequested
+        - event: BetCompleted(indexed address,indexed bytes32,uint256,uint8,uint8,uint8,uint8)
+          handler: handleBetCompleted
